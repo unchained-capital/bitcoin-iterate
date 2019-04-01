@@ -65,18 +65,18 @@ $ make -e COMPILER_FLAGS='-I /path/to/your/openssl/includes'
 # Usage
 
 `bitcoin-iterate` begins iteration at the starting block and continues
-till the ending block. For each block in between (inclusive),
+until the ending block. For each block in between (inclusive),
 `bitcoin-iterate` will iterate over:
 
 * the block metadata
 * each transaction in order of appearance.  For each transaction, `bitcoin-iterate` will iterate over 
   * each input in order
   * each output in order
-* each UTXO in the UTXO set (optional)
+	* each UTXO in the UTXO set (optional)
 
-To each data structure (block, transaction, input, output, UTXO)
+Each data structure (block, transaction, input, output, UTXO)
 corresponds a command-line flag which allows you to specify a format
-string containing format codes (e.g. - `$bN` for block height) which
+string containing format codes (e.g. - `%bN` for block height) which
 will be replaced by the corresponding values from the data structure
 and printed to `STDOUT` during iteration.
 
@@ -298,18 +298,6 @@ There are a few usage gotchas and notes worth documenting here:
   explorers and similar tools usually convert these hashes to
   big-endian for display.  If you are comparing between your output
   and what you see online, don't forget to flip the endianness!
-
-* **UTXOs aren't really UTXOs.** What this codebase refers to as a
-  UTXO might more properly called a "UTXO group".  A UTXO is usually
-  thought of a *single* unspent transaction output, and is either
-  consumed or not-consumed by the transactions in a block.  For
-  reasons of internal simplicity, all UTXOs created by the same
-  transaction are combined in a single `struct utxo`.  As a result,
-  when counting the number of UTXOs, if you merely count the number of
-  internal `struct utxo` objects, you will get a lower number than you
-  should.  Instead you want to count the "utxo unspent output count"
-  (formatting flag: `%uu`) or refer to the `utxo->unspent_outputs`
-  property.
 
 # Examples
 
