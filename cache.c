@@ -101,7 +101,7 @@ size_t read_blockchain(tal_t *tal_ctx,
 {
 	size_t block_count = 0;
 	bool cache_existed = false;
-	char *blockcache;
+	char *blockcache = NULL;
 	if (cachedir && tal_count(block_fnames)) {
 		size_t last = tal_count(block_fnames) - 1;
 		char *last_block_fname = block_fnames[last];
